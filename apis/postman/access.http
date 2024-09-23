@@ -1,0 +1,27 @@
+@url = http://localhost:8000
+
+### Register
+POST {{url}}/api/register
+Content-Type: application/json
+
+{
+    "name": "VutranShop123",
+    "email": "tranducvu3415@gmail.com",
+    "phone": "0944650589",
+    "password": "0944650589a",
+    "confirm": "0944650589a"
+}
+
+### Login
+POST {{url}}/api/login
+Content-Type: application/json
+
+{
+    "email": "tranducvu345@gmail.com",
+    "password": "0944650589a"
+}
+
+### Logout
+GET {{url}}/api/logout
+Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmYxN2Y0NzJiZjcyYzg0ODM4ZWE1OTgiLCJuYW1lIjoidnV0cmFuc2hvcDEyMyIsImVtYWlsIjoidHJhbmR1Y3Z1MzQ1QGdtYWlsLmNvbSIsInBob25lIjoiMDk0NDY1MDU4OSIsInN0YXR1cyI6ImFjdGl2ZSIsInJvbGVzIjpbXSwiY3JlYXRlZEF0IjoiMjAyNC0wOS0yM1QxNDo0NjozMS44NTdaIiwidXBkYXRlZEF0IjoiMjAyNC0wOS0yM1QxNDo0NjozMS44NTdaIiwiX192IjowLCJpYXQiOjE3MjcxMTU1MTMsImV4cCI6MTcyNzExNjQxM30.K1EakvHI-GT5aCDGpQd9wWoAVuM8d5dVJYWJLgM74Q9WNCKTD3emuTeTQ0jWTgBY9uQLaCKVct6gyn-HyX3EWdOH0UGHlS77oe_LbM2M9U3HtA9im44mAOwu8O4nw6bPUswkeolb61b9Q2f1PvHPoPURYXBZXMxApp2EdyH0n0Bs9_sEdZZQgkO34SGt4q3NX1Qtfx2vA_SRwfqG85VNZJruf0e0piBv4SThj0W9hHox9kKTPLcHP0ndHfpU4tpsmGELrcTto_4yG_sFX-4dG-lZJHqOPRrqc6wiadga5izq-bTJTVISU6TqlNsrn3wS5a1YPqQHQO4k_DX1e7wWYQ
+X-Refresh: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmYxN2Y0NzJiZjcyYzg0ODM4ZWE1OTgiLCJuYW1lIjoidnV0cmFuc2hvcDEyMyIsImVtYWlsIjoidHJhbmR1Y3Z1MzQ1QGdtYWlsLmNvbSIsInBob25lIjoiMDk0NDY1MDU4OSIsInN0YXR1cyI6ImFjdGl2ZSIsInJvbGVzIjpbXSwiY3JlYXRlZEF0IjoiMjAyNC0wOS0yM1QxNDo0NjozMS44NTdaIiwidXBkYXRlZEF0IjoiMjAyNC0wOS0yM1QxNDo0NjozMS44NTdaIiwiX192IjowLCJpYXQiOjE3MjcxMTU1MTMsImV4cCI6MTc1ODY3MzExM30.fUVq7-6cIXoyVL_fegjxBS4t_DnwoE2C2Q9wuts8Y49hp_6-Y38iC9_rR9TCcakQQs3w5suCRsuU_STjGXlU5PjwvgwhHLDP-MJjk6uZK5DnMxXDs4bBT-AN1lthNvHERYeivh7zX7eIrBWG0j8Ydic7jlVrD09QnaLxS60lrZaPyNFD-TqNZkhJPGe5BGDjFU9QFgTsQGAY_tP55rIqk-O7jkOdLM5YUvXEpetKTE-Il-3om-4v5fNdUp2_7hsfjOwzQBOqZGfxzxe1IndX_VL6pNOmTwUAbUcEDCgXHWuLHZ_9HBtZmxIO3TqtLuzQmNquNxltbNA5wmrbZaLVcA
