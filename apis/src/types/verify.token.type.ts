@@ -1,4 +1,3 @@
-import { JwtPayload } from 'jsonwebtoken';
 import { ShopDocument } from '../models/shop.model';
 
 export interface VerifyTokenResponse {

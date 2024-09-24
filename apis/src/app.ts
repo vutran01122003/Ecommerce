@@ -2,8 +2,8 @@ import express, { Express, Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import router from './routers';
 import { ZodError } from 'zod';
-import { ErrorResponse } from './expection/errorResponse';
 import { JsonWebTokenError } from 'jsonwebtoken';
+import ErrorResponse from './utils/response/error.response';
 
 const app: Express = express();
 
@@ -30,6 +30,13 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
         return res.status(400).json({
             message: err.message,
             name: err.name
+        });
+    }
+
+    if (err instanceof ErrorResponse) {
+        return res.status(err.statusCode).json({
+            message: err.message || 'Error',
+            status: err?.statusCode || 500
         });
     }
 

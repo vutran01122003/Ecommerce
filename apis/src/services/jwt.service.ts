@@ -1,14 +1,13 @@
-import JWT, { JsonWebTokenError, JwtPayload, TokenExpiredError } from 'jsonwebtoken';
 import fs from 'fs';
+import { RedisKey } from 'ioredis';
+import JWT, { TokenExpiredError } from 'jsonwebtoken';
+import client from '../database/redis';
 import ShopService from './shop.service';
-import { omit, reject } from 'lodash';
 import _default from '../../config/default';
 import { ShopDocument } from '../models/shop.model';
-import { ErrorResponse } from '../expection/errorResponse';
-import { VerifyTokenResponse } from '../schema/verifyTokenResponse.schema';
-import { ReIssueTokenResponse } from '../schema/reissueTokenResponse.schema';
-import client from '../database/redis';
-import { RedisKey } from 'ioredis';
+import { VerifyTokenResponse } from '../types/verify.token.type';
+import { ReIssueTokenResponse } from '../types/reissue.token.type';
+import { BadRequestError, ForbiddenError, NotFoundError } from '../utils/response/error.response';
 
 class JWTService {
     static async signToken(
@@ -68,18 +67,16 @@ class JWTService {
                 'REFRESH_KEY'
             );
 
-            if (isExpired) throw new ErrorResponse(403, 'Forbidden');
+            if (isExpired) throw new ForbiddenError();
             if (error) throw error;
 
             const validRefreshToken = await client.get(userData!._id as RedisKey);
 
-            if (validRefreshToken !== refreshToken) {
-                throw new ErrorResponse(400, 'Invalid Authorization');
-            }
+            if (validRefreshToken !== refreshToken) throw new BadRequestError('Invalid token');
 
             const user: Omit<ShopDocument, 'password'> | null = await ShopService.findOne({ _id: userData!._id });
 
-            if (!user) throw new ErrorResponse(404, 'Shop is not exist');
+            if (!user) throw new NotFoundError('Shop does not exist');
 
             const accessToken: string = await this.signToken(
                 user,

@@ -1,5 +1,6 @@
 import { type Request, type Response, type NextFunction } from 'express';
 import ShopService from '../services/shop.service';
+import { Ok } from '../utils/response/success.response';
 
 class ShopController {
     async getShop(req: Request, res: Response, next: NextFunction) {
@@ -7,10 +8,7 @@ class ShopController {
             const filterData = req.query;
             const shop = await ShopService.findOne(filterData);
 
-            res.status(200).json({
-                message: 'Get shop successfully',
-                metadata: shop
-            });
+            return new Ok('Get specific shop successfully', shop).send(res);
         } catch (error) {
             next(error);
         }
