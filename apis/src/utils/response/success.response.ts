@@ -1,5 +1,5 @@
-import { Response } from 'express';
-import { messageSuccess, statusCodeSuccess } from './statusCode';
+import { Response } from "express";
+import { messageSuccess, statusCodeSuccess } from "./statusCode";
 
 class SuccessResponse {
     private statusCode!: number;
@@ -18,7 +18,7 @@ class SuccessResponse {
         return res.status(this.statusCode).json({
             message: this.message,
             metadata: this.metadata,
-            ...(this.options && this.options)
+            ...(this.options && this.options),
         });
     }
 }
@@ -30,8 +30,14 @@ export class Ok extends SuccessResponse {
 }
 
 export class Created extends SuccessResponse {
-    constructor(message = messageSuccess.CREATED, metadata: any, options?: object) {
+    constructor(message = messageSuccess.CREATED, metadata?: any, options?: object) {
         super(statusCodeSuccess.CREATED, message, metadata, options);
+    }
+}
+
+export class Updated extends SuccessResponse {
+    constructor(message = messageSuccess.CREATED, metadata?: any, options?: object) {
+        super(statusCodeSuccess.UPDATED, message, metadata, options);
     }
 }
 

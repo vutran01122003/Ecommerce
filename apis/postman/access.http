@@ -5,8 +5,8 @@ POST {{url}}/api/register
 Content-Type: application/json
 
 {
-    "name": "VutranShop123",
-    "email": "tranducvu25@gmail.com",
+    "name": "AShop123",
+    "email": "tranducvu22@gmail.com",
     "phone": "0944650589",
     "password": "0944650589a",
     "confirm": "0944650589a"
@@ -17,7 +17,7 @@ POST {{url}}/api/login
 Content-Type: application/json
 
 {
-    "email": "tranducvu345@gmail.com",
+    "email": "tranducvu22@gmail.com",
     "password": "0944650589a"
 }
 

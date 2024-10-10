@@ -1,7 +1,11 @@
-import mongoose, { type CallbackWithoutResultAndOptionalError, type Connection, Schema } from 'mongoose';
-import bcrypt from 'bcrypt';
-import _default from '../../config/default';
-import mongoDBInstance from '../database/mongoDB';
+import mongoose, {
+    type CallbackWithoutResultAndOptionalError,
+    type Connection,
+    Schema,
+} from "mongoose";
+import bcrypt from "bcrypt";
+import _default from "../../config/default";
+import mongoDBInstance from "../database/mongodb";
 
 const conn: Connection = mongoDBInstance.getConnection();
 
@@ -20,38 +24,38 @@ const ShopSchema = new Schema(
         name: {
             type: String,
             required: true,
-            lowercase: true
+            lowercase: true,
         },
         email: {
             type: String,
             required: true,
             lowercase: true,
-            unique: true
+            unique: true,
         },
         phone: {
             type: String,
-            required: true
+            required: true,
         },
         password: {
             type: String,
-            required: true
+            required: true,
         },
         status: {
             type: String,
-            enum: ['active', 'inactive'],
-            default: 'active'
+            enum: ["active", "inactive"],
+            default: "active",
         },
         roles: {
             type: Array<String>,
-            default: []
-        }
+            default: [],
+        },
     },
     {
-        timestamps: true
+        timestamps: true,
     }
 );
 
-ShopSchema.pre('save', function (this: ShopDocument, next: CallbackWithoutResultAndOptionalError) {
+ShopSchema.pre("save", function (this: ShopDocument, next: CallbackWithoutResultAndOptionalError) {
     try {
         const salt = bcrypt.genSaltSync(_default.SALT_WORK_FACTORY);
         this.password = bcrypt.hashSync(this.password, salt);
@@ -70,6 +74,6 @@ ShopSchema.methods.comparePassword = function (password: string) {
     }
 };
 
-const Shop = conn.model<ShopDocument>('shop', ShopSchema);
+const Shop = conn.model<ShopDocument>("shop", ShopSchema);
 
 export default Shop;
