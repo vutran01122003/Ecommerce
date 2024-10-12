@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { messageSuccess, statusCodeSuccess } from "./statusCode";
+import { messageSuccess, statusCodeSuccess } from "../../shared/statusCode";
 
 class SuccessResponse {
     private statusCode!: number;
@@ -36,8 +36,14 @@ export class Created extends SuccessResponse {
 }
 
 export class Updated extends SuccessResponse {
-    constructor(message = messageSuccess.CREATED, metadata?: any, options?: object) {
+    constructor(message = messageSuccess.UPDATED, metadata?: any, options?: object) {
         super(statusCodeSuccess.UPDATED, message, metadata, options);
+    }
+}
+
+export class Deleted extends SuccessResponse {
+    constructor(message = messageSuccess.DELETED, metadata?: any, options?: object) {
+        super(statusCodeSuccess.DELETED, message, metadata, options);
     }
 }
 

@@ -1,4 +1,4 @@
-import { messageError, statusCodeError } from './statusCode';
+import { messageError, statusCodeError } from "../../shared/statusCode";
 
 class ErrorResponse extends Error {
     message!: string;

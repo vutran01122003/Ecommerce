@@ -1,8 +1,9 @@
+import Pagination from "../utils/pagination";
 import Product from "../models/product/product.model";
 import { ProductDocument } from "../models/product/product.schema";
 import { ProductInput } from "../schema/product.schema";
 import { PaginationQueryString } from "../shared/types";
-import Pagination from "../utils/pagination";
+import { NotFoundError } from "../utils/response/error.response";
 
 class ProductService {
     static async createProduct(productData: ProductInput["body"]): Promise<ProductDocument> {
@@ -26,11 +27,13 @@ class ProductService {
         }
     }
 
-    static async getProductById(productId: string): Promise<ProductDocument | null> {
+    static async getProductById(productId: string): Promise<ProductDocument> {
         try {
             const product: ProductDocument | null = await Product.findById(productId);
 
-            return product ? product.toObject() : null;
+            if (!product) throw new NotFoundError("Product does not exist");
+
+            return product.toObject();
         } catch (error) {
             throw error;
         }
@@ -66,33 +69,43 @@ class ProductService {
         }
     }
 
-    static async publishProductById(productId: string): Promise<ProductDocument | null> {
+    static async publishProductById(userId: string, productId: string): Promise<ProductDocument> {
         try {
-            const publishedProduct = await Product.findByIdAndUpdate(
-                productId,
+            const publishedProduct = await Product.findOneAndUpdate(
+                {
+                    shop: userId,
+                    _id: productId,
+                },
                 { isPublish: true },
                 {
                     new: true,
                 }
             );
 
-            return publishedProduct ? publishedProduct.toObject() : null;
+            if (!publishedProduct) throw new NotFoundError("Product does not exist");
+
+            return publishedProduct.toObject();
         } catch (error) {
             throw error;
         }
     }
 
-    static async unpublishProductById(productId: string): Promise<ProductDocument | null> {
+    static async unpublishProductById(userId: string, productId: string): Promise<ProductDocument> {
         try {
-            const unpublishedProduct: ProductDocument | null = await Product.findByIdAndUpdate(
-                productId,
+            const unpublishedProduct: ProductDocument | null = await Product.findOneAndUpdate(
+                {
+                    _id: productId,
+                    shop: userId,
+                },
                 { isPublish: false },
                 {
                     new: true,
                 }
             );
 
-            return unpublishedProduct ? unpublishedProduct.toObject() : null;
+            if (!unpublishedProduct) throw new NotFoundError("Product does not exist");
+
+            return unpublishedProduct.toObject();
         } catch (error) {
             throw error;
         }
@@ -106,6 +119,44 @@ class ProductService {
             ).paginate();
 
             return products;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    static async updateProduct(
+        userId: string,
+        productId: string,
+        changedProduct: ProductInput["body"]
+    ): Promise<ProductDocument | null> {
+        try {
+            const updatedProduct = await Product.findOneAndUpdate(
+                {
+                    _id: productId,
+                    shop: userId,
+                },
+                changedProduct,
+                {
+                    new: true,
+                }
+            );
+
+            if (!updatedProduct) throw new NotFoundError("Product does not exist");
+
+            return updatedProduct.toObject();
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    static async deleteProductById(userId: string, productId: string): Promise<void> {
+        try {
+            console.log({
+                userId,
+                productId,
+            });
+            const result = await Product.findOneAndDelete({ _id: productId, shop: userId });
+            if (!result) throw new NotFoundError("Product does not exist");
         } catch (error) {
             throw error;
         }

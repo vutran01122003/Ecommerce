@@ -1,4 +1,4 @@
-import { ShopDocument } from "../../models/shop.model";
+import { ShopDocument } from "../models/shop.model";
 
 export interface ReIssueTokenResponse {
     accessToken: string;

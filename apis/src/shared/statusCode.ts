@@ -7,13 +7,6 @@ export const statusCodeError = {
     INTERNAL_SERVER_ERROR: 500,
 };
 
-export const statusCodeSuccess = {
-    OK: 200,
-    CREATED: 201,
-    UPDATED: 200,
-    DELETED: 200,
-};
-
 export const messageError = {
     BAD_REQUEST: "Bad Request",
     UNAUTHORIZED: "Unauthorized",
@@ -21,6 +14,13 @@ export const messageError = {
     NOTFOUND: "Not Found",
     CONFLICT: "Conflict",
     INTERNAL_SERVER_ERROR: "Internal Server Error",
+};
+
+export const statusCodeSuccess = {
+    OK: 200,
+    CREATED: 201,
+    UPDATED: 200,
+    DELETED: 200,
 };
 
 export const messageSuccess = {

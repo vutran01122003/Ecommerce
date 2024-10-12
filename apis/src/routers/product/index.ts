@@ -1,5 +1,5 @@
 import express, { type Router } from "express";
-import ProductController from "../../controllers/product.controller";
+import productController from "../../controllers/product.controller";
 import auth from "../../middleware/auth";
 import validateInput from "../../middleware/validateResource";
 import {
@@ -12,23 +12,23 @@ import {
 
 const router: Router = express.Router();
 
-router.post("/products", auth, validateInput(productSchema), ProductController.createProduct);
+router.post("/products", auth, validateInput(productSchema), productController.createProduct);
 
-router.get("/products", validateInput(paginationSchema), ProductController.getProducts);
-router.get("/products/search", validateInput(productSearchSchema), ProductController.searchProducts);
-router.get("/products/:productId", validateInput(productIdSchema), ProductController.getProductById);
+router.get("/products", validateInput(paginationSchema), productController.getProducts);
+router.get("/products/search", validateInput(productSearchSchema), productController.searchProducts);
+router.get("/products/:productId", validateInput(productIdSchema), productController.getProductById);
 
 router.patch(
     "/products/:productId/publish",
     auth,
     validateInput(productIdSchema),
-    ProductController.publishProductById
+    productController.publishProductById
 );
 router.patch(
     "/products/:productId/unpublish",
     auth,
     validateInput(productIdSchema),
-    ProductController.unpublishProductById
+    productController.unpublishProductById
 );
 
 router.get(
@@ -36,14 +36,24 @@ router.get(
     auth,
     validateInput(paginationSchema),
     validateInput(shopIdSchema),
-    ProductController.getPublishedProductsByShop
+    productController.getPublishedProductsByShop
 );
 router.get(
     "/unpublished-products/:shopId",
     auth,
     validateInput(paginationSchema),
     validateInput(shopIdSchema),
-    ProductController.getUnpublishedProductsByShop
+    productController.getUnpublishedProductsByShop
 );
+
+router.put(
+    "/products/:productId",
+    auth,
+    validateInput(productIdSchema),
+    validateInput(productSchema),
+    productController.updateProductById
+);
+
+router.delete("/products/:productId", auth, validateInput(productIdSchema), productController.deleteProductById);
 
 export default router;

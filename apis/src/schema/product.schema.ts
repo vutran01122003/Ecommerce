@@ -32,7 +32,7 @@ const baseProductSchema = object({
         .min(5, "Product name should be at least 5 characters")
         .max(200, "Product name have maximum 200 characters"),
     product_thumb: string().optional(),
-    product_images: string().optional(),
+    product_images: array(string()).optional(),
     product_type: string({ required_error: "Product type is required" }).max(
         200,
         "Description have maximum 200 characters"
